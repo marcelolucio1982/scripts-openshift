@@ -1,0 +1,11 @@
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "angular-pipeline"
+spec:
+  source:
+    git:
+      uri: "https://github.com/marcelolucio1982/scripts-openshift"
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: jenkins/Jenkinsfile
