@@ -1,9 +1,11 @@
-pipeline{
+/*pipeline{
   agent { label 'nodejs8' }
   stages{
     stage ('checkout'){
       steps{
-        checkout scm
+        
+        git url: "https://github.com/marcelolucio1982/angular-5-example.git", 
+            branch: "master", changelog: false, poll: false
       }
     }
     stage ('install modules'){
@@ -42,6 +44,18 @@ pipeline{
           rm -rf node_modules
           oc start-build angular-5-example --from-dir=. --follow
         '''
+      }
+    }
+  }
+}*/
+
+podTemplate(label: 'nodejs8') {
+
+  node('nodejs8') {
+    stage('Build a Maven project') {
+      git 'https://github.com/marcelolucio1982/angular-5-example.git'
+      container('nodejs8') {
+          sh 'node -v'
       }
     }
   }
