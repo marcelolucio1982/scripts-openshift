@@ -49,7 +49,7 @@
   }
 }*/
 
-podTemplate(label: 'nodejs8') {
+podTemplate(label: 'nodejs8', cloud: 'openshift') {
 
   node('nodejs8') {
     stage('Build a Maven project') {
