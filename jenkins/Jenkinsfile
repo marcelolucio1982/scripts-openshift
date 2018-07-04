@@ -50,7 +50,7 @@
 }*/
 def label = "mypod-${UUID.randomUUID().toString()}"
 podTemplate(label: label, cloud: 'openshift', containers: [    
-    containerTemplate(name: 'nodejs8', image: 'docker.io/petenorth/nodejs8-openshift-slave', ttyEnabled: false, name: 'jnlp',args: '${computer.jnlpmac} ${computer.name}')
+    containerTemplate(image: 'docker.io/petenorth/nodejs8-openshift-slave', ttyEnabled: false, name: 'jnlp',args: '${computer.jnlpmac} ${computer.name}')
   ]) {
 
   node(label) {
