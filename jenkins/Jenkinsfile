@@ -48,10 +48,12 @@
     }
   }
 }*/
+def label = "mypod-${UUID.randomUUID().toString()}"
+podTemplate(label: label, cloud: 'openshift', containers: [    
+    containerTemplate(name: 'nodejs8', image: 'docker.io/petenorth/nodejs8-openshift-slave', ttyEnabled: false, name: 'jnlp',args: '${computer.jnlpmac} ${computer.name}')
+  ]) {
 
-podTemplate(label: 'nodejs8', cloud: 'openshift') {
-
-  node('nodejs8') {
+  node(label) {
     stage('Build a Maven project') {
       git 'https://github.com/marcelolucio1982/angular-5-example.git'
       container('nodejs8') {
