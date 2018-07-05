@@ -1,5 +1,7 @@
 FROM nginx:1.13.3-alpine
 
+USER default
+
 ## Copy our nginx config
 COPY nginx/ /etc/nginx/conf.d/
 

@@ -104,7 +104,7 @@ items:
         from:
           kind: ImageStreamTag
           name: angular-5-example:latest
-          namespace: myproject
+          namespace: ci
       type: ImageChange
   status:
     availableReplicas: 0
