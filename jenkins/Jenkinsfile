@@ -8,7 +8,6 @@ podTemplate(label: label, cloud: 'openshift', containers: [
       
       container('jnlp') {
 
-        stages{
           stage ('checkout'){
             steps{              
                git 'https://github.com/marcelolucio1982/angular-5-example.git'
@@ -52,8 +51,7 @@ podTemplate(label: label, cloud: 'openshift', containers: [
               '''
             }
           }
-        }
-          
+                  
       }
     
   }
