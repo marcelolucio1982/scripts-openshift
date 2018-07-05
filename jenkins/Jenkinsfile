@@ -8,9 +8,44 @@ podTemplate(label: label, cloud: 'openshift', containers: [
       
       container('jnlp') {
 
-        stage('checkout') {
-          git 'https://github.com/marcelolucio1982/angular-5-example.git'
-          sh 'node -v'
+        stages{
+          stage ('checkout'){
+            steps{              
+               git 'https://github.com/marcelolucio1982/angular-5-example.git'
+                sh 'node -v'
+            }
+          }
+          stage ('install modules'){
+            steps{
+              sh 'npm install'
+            }
+          }
+          stage ('test'){
+            steps{
+              sh "$(npm bin)/ng test --single-run --browsers Chrome_no_sandbox"
+            }
+            post {
+                always {
+                  junit "test-results.xml"
+                }
+            }
+          }
+          stage ('code quality'){
+            steps{
+              sh "$(npm bin)/ng lint"
+            }
+          }
+          stage ('build') {
+            steps{
+              sh "$(npm bin)/ng build --prod --build-optimizer"
+            }
+          }
+          stage ('build image') {
+            steps{
+              sh "rm -rf node_modules"
+              sh "oc start-build angular-5-example --from-dir=. --follow"
+            }
+          }
         }
           
       }
@@ -19,56 +54,4 @@ podTemplate(label: label, cloud: 'openshift', containers: [
 }
 
 
-/*
-pipeline{
-  agent { label 'nodejs8' }
-  stages{
-    stage ('checkout'){
-      steps{
-        
-        git url: "https://github.com/marcelolucio1982/angular-5-example.git", 
-            branch: "master", changelog: false, poll: false
-      }
-    }
-    stage ('install modules'){
-      steps{
-        sh '''
-          npm install --verbose -d 
-          npm install --save classlist.js
-        '''
-      }
-    }
-    stage ('test'){
-      steps{
-        sh '''
-          $(npm bin)/ng test --single-run --browsers Chrome_no_sandbox
-        '''
-      }
-      post {
-          always {
-            junit "test-results.xml"
-          }
-      }
-    }
-    stage ('code quality'){
-      steps{
-        sh '$(npm bin)/ng lint'
-      }
-    }
-    stage ('build') {
-      steps{
-        sh '$(npm bin)/ng build --prod --build-optimizer'
-      }
-    }
-    stage ('build image') {
-      steps{
-        sh '''
-          rm -rf node_modules
-          oc start-build angular-5-example --from-dir=. --follow
-        '''
-      }
-    }
-  }
-}
-
-*/
+  
