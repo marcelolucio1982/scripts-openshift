@@ -1,8 +1,8 @@
 FROM nginx:1.13.3-alpine
 
-USER default
+RUN cat /etc/passwd
 
-## Copy our nginx config
+## Copy our nginx configc
 COPY nginx/ /etc/nginx/conf.d/
 
 ## Remove default nginx website
