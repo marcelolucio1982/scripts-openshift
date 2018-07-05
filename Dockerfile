@@ -1,6 +1,6 @@
 FROM nginx:1.13.3-alpine
 
-RUN cat /etc/passwd
+RUN ls -lha /usr/share/nginx/
 
 ## Copy our nginx configc
 COPY nginx/ /etc/nginx/conf.d/
