@@ -1,4 +1,26 @@
-/*pipeline{
+def label = "pod-angular-${UUID.randomUUID().toString()}"
+
+podTemplate(label: label, cloud: 'openshift', containers: [    
+    containerTemplate(image: 'docker.io/petenorth/nodejs8-openshift-slave', ttyEnabled: false, name: 'jnlp',args: '${computer.jnlpmac} ${computer.name}')
+  ]) {
+
+  node(label) {   
+      
+      container('jnlp') {
+
+        stage('checkout') {
+          git 'https://github.com/marcelolucio1982/angular-5-example.git'
+          sh 'node -v'
+        }
+          
+      }
+    
+  }
+}
+
+
+/*
+pipeline{
   agent { label 'nodejs8' }
   stages{
     stage ('checkout'){
@@ -47,18 +69,6 @@
       }
     }
   }
-}*/
-def label = "mypod-${UUID.randomUUID().toString()}"
-podTemplate(label: label, cloud: 'openshift', containers: [    
-    containerTemplate(image: 'docker.io/petenorth/nodejs8-openshift-slave', ttyEnabled: false, name: 'jnlp',args: '${computer.jnlpmac} ${computer.name}')
-  ]) {
-
-  node(label) {
-    stage('Build a Maven project') {
-      git 'https://github.com/marcelolucio1982/angular-5-example.git'
-      container('jnlp') {
-          sh 'node -v'
-      }
-    }
-  }
 }
+
+*/
