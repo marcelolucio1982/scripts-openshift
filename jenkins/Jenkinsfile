@@ -17,12 +17,16 @@ podTemplate(label: label, cloud: 'openshift', containers: [
           }
           stage ('install modules'){
             steps{
-              sh 'npm install'
+              sh '''
+                npm install
+              '''
             }
           }
           stage ('test'){
             steps{
-              sh "$(npm bin)/ng test --single-run --browsers Chrome_no_sandbox"
+              sh '''
+                $(npm bin)/ng test --single-run --browsers Chrome_no_sandbox
+              '''
             }
             post {
                 always {
@@ -32,18 +36,20 @@ podTemplate(label: label, cloud: 'openshift', containers: [
           }
           stage ('code quality'){
             steps{
-              sh "$(npm bin)/ng lint"
+              sh '$(npm bin)/ng lint'
             }
           }
           stage ('build') {
             steps{
-              sh "$(npm bin)/ng build --prod --build-optimizer"
+              sh '$(npm bin)/ng build --prod --build-optimizer'
             }
           }
           stage ('build image') {
             steps{
-              sh "rm -rf node_modules"
-              sh "oc start-build angular-5-example --from-dir=. --follow"
+              sh '''
+                rm -rf node_modules
+                oc start-build angular-5-example --from-dir=. --follow
+              '''
             }
           }
         }
