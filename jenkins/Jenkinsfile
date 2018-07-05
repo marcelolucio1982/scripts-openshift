@@ -56,7 +56,7 @@ podTemplate(label: label, cloud: 'openshift', containers: [
   node(label) {
     stage('Build a Maven project') {
       git 'https://github.com/marcelolucio1982/angular-5-example.git'
-      container('nodejs8') {
+      container('jnlp') {
           sh 'node -v'
       }
     }
