@@ -14,6 +14,3 @@ EXPOSE 8080
 ENV APP_ROOT=/opt/app-root
 ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
 COPY bin/ ${APP_ROOT}/bin/
-
-
-CMD ["nginx", "-g", "daemon off;"]

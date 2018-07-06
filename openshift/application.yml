@@ -58,7 +58,7 @@ items:
           deploymentconfig: angular-5-example
       spec:
         containers:
-        - image: 172.30.1.1:5000/ci/scripts-openshift@sha256:0918cca166df1ea48b27b0d86f5c385613e1aa1e619ef628e6c8b134a64d0b65
+        - image: 172.30.1.1:5000/ci/angular-5-example@sha256:0918cca166df1ea48b27b0d86f5c385613e1aa1e619ef628e6c8b134a64d0b65
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
