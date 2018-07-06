@@ -24,7 +24,9 @@ RUN chmod -R u+x ${APP_ROOT}/bin && \
     chgrp -R 0 /var/log/nginx/ && \
     chmod -R g=u /var/log/nginx/ && \
     chgrp -R 0 /var/cache/nginx/ && \
-    chmod -R g=u /var/cache/nginx/
+    chmod -R g=u /var/cache/nginx/ && \
+    chgrp -R 0 /var/run/ && \
+    chmod -R g=u /var/run/
 
 ### Containers should NOT run as root as a good practice
 USER 10001
